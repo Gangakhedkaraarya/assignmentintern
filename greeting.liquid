@@ -1,0 +1,23 @@
+<div id="personalized-greeting" class="personalized-greeting" style="text-align: center; margin: 2rem 0;">
+  <h2>Loading your greeting...</h2>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const greetingEl = document.getElementById("personalized-greeting");
+    const hour = new Date().getHours();
+    let greeting = "";
+
+    if (hour < 12) {
+      greeting = "Good Morning, Shopper!";
+    } else if (hour === 12) {
+      greeting = "Good Noon, Shopper!";
+    } else if (hour < 18) {
+      greeting = "Good Afternoon, Shopper!";
+    } else {
+      greeting = "Good Evening, Shopper!";
+    }
+
+    greetingEl.innerHTML = `<h2>${greeting}</h2>`;
+  });
+</script>
