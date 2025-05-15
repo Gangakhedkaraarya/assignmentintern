@@ -256,3 +256,49 @@ Task 4: Custom Upsell Section (Cart Page)
  Hint: Use {% assign cart_total = cart.total_price %} and 
 collections['Accessories'].products.first.title
 
+Overview
+This implementation adds a smart product recommendation section to the cart page that:
+
+Recommends accessories when cart value is below ₹1000
+
+Recommends premium products when cart value reaches ₹1000+
+
+Updates automatically when cart contents change
+
+Implementation Location
+File: sections/main-cart-items.liquid
+Placement: After cart items loop, before totals section
+
+Core Logic
+1. Price Threshold Check
+liquid
+Copy
+Download
+{% assign cart_total = cart.total_price %}
+{% if cart_total < 100000 %}  <!-- ₹1000 = 100000 cents -->
+Uses Shopify's native price format (cents)
+
+Compares against 100,000 cents (₹1000) threshold
+
+2. Product Selection
+liquid
+Copy
+Download
+{% assign upsell_product = collections.accessories.products | first %}
+{% assign upsell_product = collections.premium.products | first %}
+Pulls first product from specified collections
+
+Collections must exist with exact handles: accessories and premium
+
+3. Dynamic Display
+liquid
+Copy
+Download
+{% if upsell_product %}
+  <!-- Product display markup -->
+{% else %}
+  <p>No upsell product found in the collection.</p>
+{% endif %}
+Shows fallback message if collections are empty
+
+Full responsive product card with image, title, price and CTA
