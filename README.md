@@ -121,6 +121,36 @@ a custom tag (best-seller, new-arrival, discounted).
  Hint: Use {% if product.tags contains 'best-seller' %} inside a for 
 loop
 
+Overview
+This code adds a dropdown filter to a Shopify collection page, allowing users to filter products by tags (best-seller, new-arrival, discounted). It modifies the URL to apply the filter without reloading the entire page (if using AJAX) or with a standard page reload.
+
+How It Works
+1. HTML Structure
+The dropdown is structured as a <select> element inside main-collection-product-grid.liquid:
+
+html
+Copy
+Download
+Run
+<div class="custom-tag-filter">
+  <label for="tag-filter"><strong>Filter by:</strong></label>
+  <select id="tag-filter" onchange="if(this.value) window.location.href=this.value;">
+    <option value="{{ collection.url }}">All Products</option>
+    <option value="{{ collection.url }}?constraint=best-seller" {% if current_tags contains 'best-seller' %}selected{% endif %}>Best Sellers</option>
+    <option value="{{ collection.url }}?constraint=new-arrival" {% if current_tags contains 'new-arrival' %}selected{% endif %}>New Arrivals</option>
+    <option value="{{ collection.url }}?constraint=discounted" {% if current_tags contains 'discounted' %}selected{% endif %}>Discounted</option>
+  </select>
+</div>
+2. Key Logic Explained
+A. Dropdown Options
+All Products → Resets the filter ({{ collection.url }}).
+
+Best Sellers → Filters by best-seller tag (?constraint=best-seller).
+
+New Arrivals → Filters by new-arrival tag (?constraint=new-arrival).
+
+Discounted → Filters by discounted tag (?constraint=discounted).
+
  Task 3: Personalized Greeting (Homepage Feature)
  Modify index.liquid to display a personalized greeting based on the time of day:
  • Show "Good Morning, Shopper!" before 12 PM.
